@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const Post = require("../models/post");
+const authentication = require("../middleware/authenticate");
 console.log(Post);
 
 //retrieve post
@@ -19,9 +20,9 @@ router.get('/api/posts', async(req, res, next) => {
 
 
     //send post
-router.post("/api/posts", async(req, res, next) => {
+router.post("/api/posts", authentication, async(req, res, next) => {
     try {
-        const postPost = await Post.create(req.body);
+        const postPost = await Post.create({content: req.body.content, userId: req.userId });
         res.json(postPost);
     }
     catch (error) {

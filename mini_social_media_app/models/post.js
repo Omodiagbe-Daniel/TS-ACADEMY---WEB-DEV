@@ -11,6 +11,11 @@ const postSchema = new mongoose.Schema({
             }, 
             message: "Empty white spaces are not allowed"
         }
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+        required: true
     }
 })
 
